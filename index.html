@@ -5,174 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Piercamillo Casella | Ingegnere Meccanico & Aerospace</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #f4f7f9;
-      --surface: #ffffff;
-      --text: #1a2a3a;
-      --muted: #5a6e82;
-      --accent: #0f4c81;
-      --accent-light: #d8e4f0;
-      --accent-hover: #0a365c;
-
-      --font-heading: 'Playfair Display', serif;
-      --font-body: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
-    /* Body ora gestisce l'impaginazione verticale (contenuto + footer) */
-    body { background: var(--bg); color: var(--text); font-family: var(--font-body); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
-
-    /* NUOVO WRAPPER: Mantiene le due colonne della stessa identica altezza */
-    .layout-wrapper { display: flex; flex: 1; width: 100%; max-width: 1600px; margin: 0 auto; }
-
-
-    /* LAYOUT: FLOATING SIDEBAR + CONTENT */
-    .sidebar-container {
-      flex: 0 0 35%;
-      position: sticky;
-      top: 0;
-      height: 100vh; /* La colonna è alta esattamente quanto lo schermo */
-      display: flex;
-      align-items: center; /* Centra la card verticalmente in modo perfetto e nativo */
-      padding: 2rem 3rem;
-    }
-    .floating-card {
-      width: 100%; /* Si allarga fino ai bordi del suo contenitore */
-      background: var(--surface);
-      border-radius: 24px;
-      padding: 3rem;
-      box-shadow: 0 25px 50px -12px rgba(15, 76, 129, 0.08);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      border: 1px solid var(--accent-light);
-    }
-
-    .content { flex: 1; padding: 4rem 5rem 4rem 2rem; }
-
-    /* SIDEBAR ELEMENTI */
-    .profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 1.5rem; box-shadow: 0 10px 25px rgba(15, 76, 129, 0.15); border: 4px solid var(--surface); }
-    h1 { font-family: var(--font-heading); font-size: 2.8rem; line-height: 1.1; margin-bottom: 0.5rem; color: var(--text); }
-    h2 { font-size: 0.95rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2rem; line-height: 1.4;}
-
-    /* CONTATTI CON ICONE */
-    .contact-list { list-style: none; padding: 0; margin-bottom: 2.5rem; text-align: left; width: 100%; }
-    .contact-list li { display: flex; align-items: center; gap: 12px; color: var(--muted); margin-bottom: 12px; font-size: 0.95rem; font-weight: 500;}
-    .contact-list svg { width: 18px; height: 18px; stroke: var(--accent); flex-shrink: 0; }
-
-    /* BOTTONE ELEGANTE HR */
-    .btn-req {
-      display: inline-block; padding: 1rem 2.5rem; background: var(--accent); color: var(--surface);
-      border-radius: 50px; font-weight: 600; text-decoration: none; transition: all 0.4s ease;
-      box-shadow: 0 10px 20px rgba(15, 76, 129, 0.2); width: 100%;
-    }
-    .btn-req:hover { background: var(--accent-hover); color: #fff; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(15, 76, 129, 0.3); }
-
-    /* CONTENT SECTIONS */
-    section { margin-bottom: 7rem; opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
-    section.fade-in { opacity: 1; transform: translateY(0); }
-
-    .sec-title {
-      font-family: var(--font-body);
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 3rem;
-      border-bottom: 1px solid var(--accent-light);
-      padding-bottom: 1rem;
-    }
-
-    .bio { font-size: 1.15rem; color: var(--muted); line-height: 1.8; font-weight: 400; }
-    .bio strong { color: var(--text); font-weight: 600; }
-
-    /* LAYOUT: TIMELINE VERTICALE */
-    .timeline-container { position: relative; padding-left: 1rem; display: flex; flex-direction: column; }
-
-    .timeline-container::before {
-      content: ''; position: absolute; left: 1rem; top: 10px; bottom: 20px; width: 2px; background: var(--accent-light);
-    }
-
-    .exp-card {
-      position: relative; background: var(--surface); padding: 2.5rem; border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(15, 76, 129, 0.04); border: 1px solid var(--accent-light);
-      transition: all 0.4s ease; margin-left: 2.5rem; margin-bottom: 2.5rem;
-    }
-
-    .exp-card::before {
-      content: ''; position: absolute; left: -2.5rem; top: 2.5rem; width: 14px; height: 14px;
-      border-radius: 50%; background: var(--accent); border: 4px solid var(--bg);
-      transform: translateX(-7px); transition: all 0.4s ease;
-    }
-
-    .exp-card:hover { transform: translateX(8px); box-shadow: 0 15px 40px rgba(15, 76, 129, 0.08); border-color: var(--accent); }
-    .exp-card:hover::before { background: var(--surface); border-color: var(--accent); transform: translateX(-7px) scale(1.2); }
-
-    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem; }
-    .card-title { font-size: 1.25rem; font-weight: 600; color: var(--text); line-height: 1.3;}
-    .card-date { background: var(--accent-light); color: var(--accent); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; margin-left: 1rem;}
-
-    /* RIMOSSO IL CORSIVO DALLE AZIENDE E RESO PIU' PULITO */
-    .card-org { font-size: 1.05rem; color: var(--accent); margin-bottom: 1.2rem; font-weight: 600; font-family: var(--font-body); font-style: normal;}
-    .card-desc { font-size: 1rem; color: var(--muted); line-height: 1.7; }
-
-    /* SKILLS PILLS */
-    .skills-wrapper { display: flex; flex-wrap: wrap; gap: 0.8rem; }
-    .skill-pill { padding: 0.8rem 1.5rem; background: var(--accent-light); border-radius: 50px; font-size: 0.95rem; color: var(--accent); font-weight: 600; transition: all 0.3s; border: 1px solid transparent; }
-    .skill-pill:hover { border-color: var(--accent); background: var(--surface); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(15, 76, 129, 0.1); }
-
-    /* FORM HR MINIMALE */
-    .hr-form { background: var(--surface); padding: 3rem; border-radius: 24px; box-shadow: 0 15px 35px rgba(15, 76, 129, 0.05); border: 1px solid var(--accent-light);}
-    .input-line { width: 100%; border: none; border-bottom: 1px solid #cbd5e1; background: transparent; padding: 1rem 0; font-family: var(--font-body); font-size: 1rem; color: var(--text); outline: none; margin-bottom: 2rem; transition: border-color 0.3s; }
-    .input-line:focus { border-color: var(--accent); }
-    .btn-submit { background: var(--text); color: #fff; border: none; padding: 1.2rem 3rem; border-radius: 50px; cursor: pointer; transition: all 0.3s; font-weight: 600; font-family: var(--font-body); font-size: 1rem; }
-    .btn-submit:hover { background: var(--accent); box-shadow: 0 10px 20px rgba(15, 76, 129, 0.2); }
-
-    /* FOOTER DISCRETO */
-    .site-footer {
-      text-align: center;
-      padding: 2.5rem 1rem;
-      font-size: 0.85rem;
-      color: var(--muted);
-      border-top: 1px solid var(--accent-light);
-      background: var(--surface);
-    }
-    .site-footer a {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 700;
-      transition: opacity 0.3s ease;
-    }
-    .site-footer a:hover {
-      opacity: 0.7;
-    }
-
-    @media (max-width: 1024px) {
-      .layout-wrapper { flex-direction: column; }
-
-      .sidebar-container {
-        position: relative; /* Disattiva lo sticky su cellulare */
-        height: auto; /* Rimuove l'altezza fissa */
-        padding: 2rem;
-      }
-
-      .floating-card {
-        box-shadow: none;
-        border: none;
-        background: transparent;
-        padding: 1rem;
-      }
-
-      .content { padding: 2rem; }
-      .card-header { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
-      .card-date { margin-left: 0; }
-      .contact-list { justify-content: center; text-align: center; }
-      .contact-list li { justify-content: center; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -190,12 +23,22 @@
           Francavilla Fontana (BR), Italia
         </li>
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          piercamillo.c4@gmail.com
+          <a href="mailto:piercamillo.c4@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            piercamillo.c4@gmail.com
+          </a>
         </li>
         <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-          +39 320 4231506
+          <a href="tel:+393204231506">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+            +39 320 4231506
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/piercamillo-casella-0726b120a" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            LinkedIn Profile
+          </a>
         </li>
       </ul>
 
@@ -205,12 +48,18 @@
 
   <main class="content">
     <section class="animate">
-      <h3 class="sec-title">Chi Sono</h3>
+      <h3 class="sec-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        Chi Sono
+      </h3>
       <p class="bio">Sono un professionista dinamico, creativo e orientato all'innovazione. Con una solida formazione in <strong>Ingegneria Meccanica</strong>, sono attualmente impegnato in un percorso magistrale in <strong>Aerospace Engineering</strong>. Sono fortemente motivato ad affrontare nuove sfide tecnologiche, ampliando continuamente le mie competenze con una particolare predisposizione alla leadership, alla gestione efficace dei progetti e al problem solving complesso.</p>
     </section>
 
     <section class="animate">
-      <h3 class="sec-title">Formazione</h3>
+      <h3 class="sec-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+        Formazione
+      </h3>
       <div class="timeline-container">
 
         <div class="exp-card">
@@ -235,7 +84,10 @@
     </section>
 
     <section class="animate">
-      <h3 class="sec-title">Esperienza e Progetti</h3>
+      <h3 class="sec-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+        Esperienza e Progetti
+      </h3>
       <div class="timeline-container">
 
         <div class="exp-card">
@@ -269,31 +121,51 @@
     </section>
 
     <section class="animate">
-      <h3 class="sec-title">Hardware, Software & Soft Skills</h3>
-      <div class="skills-wrapper">
-        <div class="skill-pill">SolidWorks</div>
-        <div class="skill-pill">ANSYS</div>
-        <div class="skill-pill">Python</div>
-        <div class="skill-pill">C++</div>
-        <div class="skill-pill">MATLAB & Simulink</div>
-        <div class="skill-pill">CATIA V5 CAD</div>
-        <div class="skill-pill">NASTRAN</div>
-        <div class="skill-pill">Inglese (Avanzato)</div>
-        <div class="skill-pill">Project Management</div>
-        <div class="skill-pill">Team Leadership</div>
+      <h3 class="sec-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        Hardware, Software & Soft Skills
+      </h3>
+
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h4 class="category-title">Ingegneria & Software</h4>
+          <div class="skills-wrapper">
+            <div class="skill-pill hard-skill">SolidWorks</div>
+            <div class="skill-pill hard-skill">ANSYS</div>
+            <div class="skill-pill hard-skill">CATIA V5 CAD</div>
+            <div class="skill-pill hard-skill">NASTRAN</div>
+            <div class="skill-pill hard-skill">MATLAB & Simulink</div>
+            <div class="skill-pill hard-skill">Python</div>
+            <div class="skill-pill hard-skill">C++</div>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h4 class="category-title">Soft Skills & Lingue</h4>
+          <div class="skills-wrapper">
+            <div class="skill-pill soft-skill">Project Management</div>
+            <div class="skill-pill soft-skill">Team Leadership</div>
+            <div class="skill-pill soft-skill">Inglese (Avanzato)</div>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="animate" id="contatti">
-      <h3 class="sec-title">Progetti futuri? Parliamone.</h3>
+      <h3 class="sec-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        Progetti futuri? Parliamone.
+      </h3>
       <div class="hr-form">
 
-        <form id="contactForm" action="INCOLLA_QUI_IL_LINK_FORMSPREE" method="POST">
+        <form id="contactForm" action="https://formspree.io/f/xbdqwgkg" method="POST">
 
           <input type="text" name="Nome" class="input-line" placeholder="Nome o Azienda" required>
           <input type="email" name="Email" class="input-line" placeholder="Email di contatto" required>
           <textarea name="Messaggio" class="input-line" rows="3" placeholder="Parlami della tua proposta o progetto lavorativo..." required></textarea>
-
           <button type="submit" class="btn-submit" id="submitBtn">Invia Messaggio</button>
 
           <p id="formFeedback" style="display: none; margin-top: 15px; font-weight: 600;"></p>
@@ -305,7 +177,7 @@
 
 </div>
 <footer class="site-footer">
-  Digital Infrastructure by <a href="https://ad-identity-lab.onrender.com" target="_blank">A&D Identity Lab</a> - All Right Reserved
+  Powered by <a href="https://ad-identity-lab.onrender.com" target="_blank">A&D Identity Lab</a> - All Right Reserved
 </footer>
 
 <script src="js/index.js"></script>

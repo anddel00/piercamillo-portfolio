@@ -1,247 +1,305 @@
-/*! HTML5 Boilerplate v9.0.1 | MIT License | https://html5boilerplate.com/ */
 
-/* main.css 3.0.0 | MIT License | https://github.com/h5bp/main.css#readme */
-/*
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
+:root {
+  --bg: #f4f7f9;
+  --surface: #ffffff;
+  --text: #1a2a3a;
+  --muted: #5a6e82;
+  --accent: #0f4c81;
+  --accent-light: #d8e4f0;
+  --accent-hover: #0a365c;
 
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
-
-html {
-  color: #222;
-  font-size: 1em;
-  line-height: 1.4;
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
 }
 
-/*
- * Remove text-shadow in selection highlight:
- * https://twitter.com/miketaylr/status/12228805301
- *
- * Customize the background color to match your design.
- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-::-moz-selection {
-  background: #b3d4fc;
-  text-shadow: none;
+/* Body ora gestisce l'impaginazione verticale (contenuto + footer) */
+body { background: var(--bg); color: var(--text); font-family: var(--font-body); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+
+/* NUOVO WRAPPER: Mantiene le due colonne della stessa identica altezza */
+.layout-wrapper { display: flex; flex: 1; width: 100%; max-width: 1600px; margin: 0 auto; }
+
+
+/* LAYOUT: FLOATING SIDEBAR + CONTENT */
+.sidebar-container {
+  flex: 0 0 35%;
+  position: sticky;
+  top: 0;
+  height: 100vh; /* La colonna è alta esattamente quanto lo schermo */
+  display: flex;
+  align-items: center; /* Centra la card verticalmente in modo perfetto e nativo */
+  padding: 2rem 3rem;
+}
+.floating-card {
+  width: 100%; /* Si allarga fino ai bordi del suo contenitore */
+  background: var(--surface);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: 0 25px 50px -12px rgba(15, 76, 129, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 1px solid var(--accent-light);
 }
 
-::selection {
-  background: #b3d4fc;
-  text-shadow: none;
+.content { flex: 1; padding: 4rem 5rem 4rem 2rem; }
+
+/* SIDEBAR ELEMENTI */
+.profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 1.5rem; box-shadow: 0 10px 25px rgba(15, 76, 129, 0.15); border: 2px solid var(--accent); }
+h1 { font-family: var(--font-heading); font-size: 2.8rem; line-height: 1.1; margin-bottom: 0.5rem; color: var(--text); }
+h2 { font-size: 0.95rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2rem; line-height: 1.4;}
+
+/* CONTATTI CON ICONE */
+.contact-list { list-style: none; padding: 0; margin-bottom: 2.5rem; text-align: left; width: 100%; }
+.contact-list li { display: flex; align-items: center; gap: 12px; color: var(--muted); margin-bottom: 12px; font-size: 0.95rem; font-weight: 500;}
+.contact-list svg { width: 18px; height: 18px; stroke: var(--accent); flex-shrink: 0; }
+/* --- AGGIUNTE PER HOVER DEI LINK CONTATTI (LINKEDIN) --- */
+.contact-list a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.contact-list a:hover {
+  color: var(--accent);
+}
+.contact-list a:hover svg {
+  stroke: var(--accent-hover);
+  transform: scale(1.15); /* Effetto ingrandimento al passaggio del mouse */
 }
 
-/*
- * A better looking default horizontal rule
- */
+/* BOTTONE ELEGANTE HR */
+.btn-req {
+  display: inline-block; padding: 1rem 2.5rem; background: var(--accent); color: var(--surface);
+  border-radius: 50px; font-weight: 600; text-decoration: none; transition: all 0.4s ease;
+  box-shadow: 0 10px 20px rgba(15, 76, 129, 0.2); width: 100%;
+}
+.btn-req:hover { background: var(--accent-hover); color: #fff; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(15, 76, 129, 0.3); }
 
-hr {
-  display: block;
-  height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 1em 0;
-  padding: 0;
+/* CONTENT SECTIONS */
+section { margin-bottom: 7rem; opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+section.fade-in { opacity: 1; transform: translateY(0); }
+
+/* --- AGGIUNTE PER HOVER DEI LINK CONTATTI (LINKEDIN) --- */
+.contact-list a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.contact-list a:hover {
+  color: var(--accent);
+}
+.contact-list a:hover svg {
+  stroke: var(--accent-hover);
+  transform: scale(1.15); /* Effetto ingrandimento al passaggio del mouse */
 }
 
-/*
- * Remove the gap between audio, canvas, iframes,
- * images, videos and the bottom of their containers:
- * https://github.com/h5bp/html5-boilerplate/issues/440
- */
-
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-  vertical-align: middle;
+/* --- MODIFICA TITOLI SEZIONE CON ICONE --- */
+.sec-title {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Spazio tra icona e testo */
+  font-family: var(--font-body);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--accent-light);
+  padding-bottom: 1rem;
 }
 
-/*
- * Remove default fieldset styles.
- */
-
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: 0;
+.sec-title svg {
+  width: 32px;
+  height: 32px;
+  stroke: var(--accent);
+  flex-shrink: 0;
 }
 
-/*
- * Allow only vertical resizing of textareas.
- */
+.bio { font-size: 1.15rem; color: var(--muted); line-height: 1.8; font-weight: 400; text-align: justify; }
+.bio strong { color: var(--text); font-weight: 600; }
 
-textarea {
-  resize: vertical;
+/* LAYOUT: TIMELINE VERTICALE */
+.timeline-container { position: relative; padding-left: 1rem; display: flex; flex-direction: column; }
+
+.timeline-container::before {
+  content: ''; position: absolute; left: 1rem; top: 10px; bottom: 20px; width: 2px; background: var(--accent-light);
 }
 
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-/* ==========================================================================
-   Helper classes
-   ========================================================================== */
-
-/*
- * Hide visually and from screen readers
- */
-
-.hidden,
-[hidden] {
-  display: none !important;
+.exp-card {
+  position: relative; background: var(--surface); padding: 2.5rem; border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(15, 76, 129, 0.04); border: 1px solid var(--accent-light);
+  transition: all 0.4s ease; margin-left: 2.5rem; margin-bottom: 2.5rem;
 }
 
-/*
- * Hide only visually, but have it available for screen readers:
- * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
- *
- * 1. For long content, line feeds are not interpreted as spaces and small width
- *    causes content to wrap 1 word per line:
- *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
- */
-
-.visually-hidden {
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-  /* 1 */
+.exp-card::before {
+  content: ''; position: absolute; left: -2.5rem; top: 2.5rem; width: 14px; height: 14px;
+  border-radius: 50%; background: var(--accent); border: 4px solid var(--bg);
+  transform: translateX(-11px); transition: all 0.4s ease;
 }
 
-/*
- * Extends the .visually-hidden class to allow the element
- * to be focusable when navigated to via the keyboard:
- * https://www.drupal.org/node/897638
- */
+.exp-card:hover { transform: translateX(8px); box-shadow: 0 15px 40px rgba(15, 76, 129, 0.08); border-color: var(--accent); }
 
-.visually-hidden.focusable:active,
-.visually-hidden.focusable:focus {
-  clip: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-  white-space: inherit;
-  width: auto;
+.exp-card:hover::before {
+  background: var(--surface); border-color: var(--accent);
+  transform: translateX(-11px) scale(1.2);
+}
+.card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem; }
+.card-title { font-size: 1.25rem; font-weight: 600; color: var(--text); line-height: 1.3;}
+.card-date { background: var(--accent-light); color: var(--accent); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; margin-left: 1rem;}
+
+/* RIMOSSO IL CORSIVO DALLE AZIENDE E RESO PIU' PULITO */
+.card-org { font-size: 1.05rem; color: var(--accent); margin-bottom: 1.2rem; font-weight: 600; font-family: var(--font-body); font-style: normal;}
+.card-desc { font-size: 1rem; color: var(--muted); line-height: 1.7; }
+
+/* SKILLS PILLS */
+.skills-wrapper { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+.skill-pill { padding: 0.8rem 1.5rem; background: var(--accent-light); border-radius: 50px; font-size: 0.95rem; color: var(--accent); font-weight: 600; transition: all 0.3s; border: 1px solid transparent; }
+.skill-pill:hover { border-color: var(--accent); background: var(--surface); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(15, 76, 129, 0.1); }
+
+/* FORM HR MINIMALE */
+.hr-form { background: var(--surface); padding: 3rem; border-radius: 24px; box-shadow: 0 15px 35px rgba(15, 76, 129, 0.05); border: 1px solid var(--accent-light);}
+.input-line { width: 100%; border: none; border-bottom: 1px solid #cbd5e1; background: transparent; padding: 1rem 0; font-family: var(--font-body); font-size: 1rem; color: var(--text); outline: none; margin-bottom: 2rem; transition: border-color 0.3s; }
+.input-line:focus { border-color: var(--accent); }
+.btn-submit { background: var(--text); color: #fff; border: none; padding: 1.2rem 3rem; border-radius: 50px; cursor: pointer; transition: all 0.3s; font-weight: 600; font-family: var(--font-body); font-size: 1rem; }
+.btn-submit:hover { background: var(--accent); box-shadow: 0 10px 20px rgba(15, 76, 129, 0.2); }
+
+/* FOOTER DISCRETO */
+.site-footer {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-top: 1px solid var(--accent-light);
+  background: var(--surface);
+}
+.site-footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 700;
+  transition: opacity 0.3s ease;
+}
+.site-footer a:hover {
+  opacity: 0.7;
+}
+/* --- NUOVA SEZIONE SKILLS --- */
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
 }
 
-/*
- * Hide visually and from screen readers, but maintain layout
- */
-
-.invisible {
-  visibility: hidden;
+.category-title {
+  font-size: 1.05rem;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-bottom: 2px solid var(--accent-light);
+  display: inline-block;
+  padding-bottom: 0.5rem;
 }
 
-/*
- * Clearfix: contain floats
- *
- * The use of `table` rather than `block` is only necessary if using
- * `::before` to contain the top-margins of child elements.
- */
-
-.clearfix::before,
-.clearfix::after {
-  content: "";
-  display: table;
+.skills-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
 }
 
-.clearfix::after {
-  clear: both;
+.skill-pill {
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.3s;
 }
 
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-  /* Style adjustments for viewports that meet the condition */
+/* Stile per software tecnici: bordo sottile, fondo bianco */
+.hard-skill {
+  background: var(--surface);
+  border: 1px solid var(--accent-light);
+  color: var(--text);
+}
+.hard-skill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(15, 76, 129, 0.08);
 }
 
-@media print,
-  (-webkit-min-device-pixel-ratio: 1.25),
-  (min-resolution: 1.25dppx),
-  (min-resolution: 120dpi) {
-  /* Style adjustments for high resolution devices */
+/* Stile per management: fondo pieno azzurro */
+.soft-skill {
+  background: var(--accent-light);
+  border: 1px solid transparent;
+  color: var(--accent);
+}
+.soft-skill:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(15, 76, 129, 0.15);
 }
 
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid the additional HTTP request:
-   https://www.phpied.com/delay-loading-your-print-css/
-   ========================================================================== */
+@media (max-width: 1024px) {
+  .layout-wrapper { flex-direction: column; }
 
-@media print {
-  *,
-  *::before,
-  *::after {
-    background: #fff !important;
-    color: #000 !important;
-    /* Black prints faster */
-    box-shadow: none !important;
-    text-shadow: none !important;
+  .sidebar-container {
+    position: relative;
+    height: auto;
+    padding: 2rem 1rem; /* Ridotto leggermente il padding laterale della sidebar */
   }
 
-  a,
-  a:visited {
-    text-decoration: underline;
+  .btn-submit {
+    display: block;
+    margin: 0 auto; /* Centra orizzontalmente */
+    width: 100%;    /* Opzionale: lo rende a tutta larghezza come il tasto della sidebar */
+    max-width: 300px; /* Impedisce che diventi troppo largo su tablet */
   }
 
-  a[href]::after {
-    content: " (" attr(href) ")";
+  .floating-card {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    padding: 1rem;
   }
 
-  abbr[title]::after {
-    content: " (" attr(title) ")";
+  /* --- NUOVE MODIFICHE PER ALLARGARE LE CARD SU MOBILE --- */
+  .content {
+    padding: 1.5rem 1rem; /* Ridotto il padding esterno del contenuto */
   }
 
-  /*
-   * Don't show links that are fragment identifiers,
-   * or use the `javascript:` pseudo protocol
-   */
-  a[href^="#"]::after,
-  a[href^="javascript:"]::after {
-    content: "";
+  .exp-card {
+    padding: 1.5rem; /* Ridotto lo spazio vuoto dentro le card */
+    margin-left: 1.5rem; /* Avvicinata la card alla linea della timeline */
+  }
+  .exp-card:hover{transform: translateX(0); box-shadow: none;
   }
 
-  pre {
-    white-space: pre-wrap !important;
+  .exp-card::before {
+    left: -1.5rem; /* Adattato il puntino al nuovo margine della card */
   }
 
-  pre,
-  blockquote {
-    border: 1px solid #999;
-    page-break-inside: avoid;
+  /* Aggiungi dentro @media (max-width: 1024px) */
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 
-  tr,
-  img {
-    page-break-inside: avoid;
+  .hr-form {
+    padding: 1.5rem; /* Allarga anche il modulo dei contatti */
   }
+  /* -------------------------------------------------------- */
 
-  p,
-  h2,
-  h3 {
-    orphans: 3;
-    widows: 3;
-  }
-
-  h2,
-  h3 {
-    page-break-after: avoid;
-  }
+  .card-header { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+  .card-date { margin-left: 0; }
+  .contact-list { justify-content: center; text-align: center; }
+  .contact-list li { justify-content: center; }
 }
-
